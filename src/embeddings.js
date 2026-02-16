@@ -12,33 +12,34 @@
 
 import { pipeline } from '@huggingface/transformers';
 
+const ASSET_BASE = 'https://pub-de7dc117bc804c86ac426bb6bdfa8854.r2.dev';
+
 let _pipeline = null;
 
 /**
- * Load pre-computed vocabulary embeddings from binary files.
+ * Load pre-computed vocabulary embeddings from R2 (or local fallback in dev).
  *
  * @returns {{ words: string[], vectors: Float32Array, dims: number }}
  */
 export async function loadVocabulary(progressCallback) {
-  // Fetch vocab word list
-  const vocabResp = await fetch('/vocab.json');
+  // Try R2 first, fall back to local for dev
+  let vocabResp = await fetch(`${ASSET_BASE}/vocab.json`);
   if (!vocabResp.ok) {
-    throw new Error(
-      'Could not load vocab.json. The pre-computed vocabulary has not been generated yet.\n' +
-      'Run the embedding pipeline script first: npm run build-embeddings'
-    );
+    vocabResp = await fetch('/vocab.json');
+  }
+  if (!vocabResp.ok) {
+    throw new Error('Could not load vocab.json from R2 or locally.');
   }
   const words = await vocabResp.json();
 
   if (progressCallback) progressCallback(0.3);
 
-  // Fetch binary embedding vectors
-  const binResp = await fetch('/embeddings.bin');
+  let binResp = await fetch(`${ASSET_BASE}/embeddings.bin`);
   if (!binResp.ok) {
-    throw new Error(
-      'Could not load embeddings.bin. The pre-computed embeddings have not been generated yet.\n' +
-      'Run the embedding pipeline script first: npm run build-embeddings'
-    );
+    binResp = await fetch('/embeddings.bin');
+  }
+  if (!binResp.ok) {
+    throw new Error('Could not load embeddings.bin from R2 or locally.');
   }
   const buf = await binResp.arrayBuffer();
   const vectors = new Float32Array(buf);

@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-# Large binary data
+# Large binary data (served from R2)
+public/embeddings.bin
 data/
 
 # Screenshots from testing
