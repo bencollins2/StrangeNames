@@ -1,0 +1,19 @@
+{
+  "name": "strange-names-spike",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "process-glove": "node scripts/process-glove.js"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^3.8.1",
+    "three": "^0.182.0"
+  }
+}

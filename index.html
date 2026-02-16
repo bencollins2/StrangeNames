@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strange Names — Six Words</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <!-- Setup screen: pick your 6 words -->
+    <div id="setup">
+      <h1>Strange Names</h1>
+      <p class="subtitle">Pick 6 words to build your universe</p>
+      <div class="axes">
+        <div class="axis-pair">
+          <label>← Left / Right →</label>
+          <div class="pair-inputs">
+            <input type="text" id="left" placeholder="love" value="love" />
+            <span class="axis-divider">↔</span>
+            <input type="text" id="right" placeholder="hate" value="hate" />
+          </div>
+        </div>
+        <div class="axis-pair">
+          <label>↑ Up / Down ↓</label>
+          <div class="pair-inputs">
+            <input type="text" id="up" placeholder="sky" value="sky" />
+            <span class="axis-divider">↕</span>
+            <input type="text" id="down" placeholder="earth" value="earth" />
+          </div>
+        </div>
+        <div class="axis-pair">
+          <label>↗ Forward / Backward ↙</label>
+          <div class="pair-inputs">
+            <input type="text" id="forward" placeholder="future" value="future" />
+            <span class="axis-divider">⇿</span>
+            <input type="text" id="backward" placeholder="past" value="past" />
+          </div>
+        </div>
+      </div>
+      <div id="loading-progress" class="hidden">
+        <div class="progress-row">
+          <span id="vocab-status" class="progress-label">Waiting for vocabulary...</span>
+          <div class="progress-track">
+            <div id="vocab-progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+        <div class="progress-row">
+          <span id="model-status" class="progress-label">Waiting for AI model...</span>
+          <div class="progress-track">
+            <div id="model-progress-fill" class="progress-fill"></div>
+          </div>
+        </div>
+      </div>
+      <button id="launch" disabled>Launch</button>
+      <p id="error" class="error"></p>
+    </div>
+
+    <!-- Loading screen -->
+    <div id="loading" class="hidden">
+      <p>Building your word space...</p>
+    </div>
+
+    <!-- HUD overlay during flight -->
+    <div id="hud" class="hidden">
+      <div id="compass">
+        <span class="compass-label" id="hud-left">←</span>
+        <span class="compass-label" id="hud-right">→</span>
+        <span class="compass-label" id="hud-up">↑</span>
+        <span class="compass-label" id="hud-down">↓</span>
+        <span class="compass-label" id="hud-forward">↗</span>
+        <span class="compass-label" id="hud-backward">↙</span>
+      </div>
+      <div id="crosshair">+</div>
+      <div id="minimap-container"></div>
+      <div id="gauge-container"></div>
+      <div id="nearby"></div>
+      <div id="instructions">Click to fly · WASD move · Mouse look · Shift boost · 1-6 orient · Shift+1-6 teleport · ESC pause</div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
